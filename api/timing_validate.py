@@ -28,16 +28,13 @@ def remove_ineffective_proxy():
         r'https://httpbin.org/',
     ]
     while True:
-        url = random.choice(validate_urls)
-        proxy = RedisClient.get_proxy().get('proxy')
-        if proxy:
+        proxies = RedisClient.get_all_proxies()
+        for proxy in proxies:
+            url = random.choice(validate_urls)
             try:
                 res = requests.get(url,headers=headers,proxies=proxy,timeout=3)
-                # print(proxy)
             except:
-
                 host,port = re.findall(r'//(.+):(\d+)',proxy['http'])[0]
-                # print(host,port)
                 check_str = '{}|{}'.format(host,port)
                 RedisClient.remove_proxy(check_str)
         time.sleep(2)

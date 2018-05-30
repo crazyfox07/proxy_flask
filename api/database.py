@@ -35,6 +35,22 @@ class RedisClient(object):
         cls.r.delete(check_str)
 
     @classmethod
+    def get_all_proxies(cls):
+        items_all = cls.r.keys()
+        results = list()
+        if b'proxy_nofilter' in items_all:
+            items_all.remove(b'proxy_nofilter')
+        for item in items_all:
+            item = item.decode(encoding='utf8')
+            host, port = item.split('|')
+            proxy_chosen = {
+                'http': 'http://{}:{}'.format(host, port),
+                'https': 'https://{}:{}'.format(host, port)
+            }
+            results.append(proxy_chosen)
+        return results
+
+    @classmethod
     def get_proxy(cls):
         """        
         :param proxy_num: 需要返回的代理数目

@@ -8,6 +8,8 @@ Date: 2018/5/25 15:10
 """
 import requests
 
+from api.database import RedisClient
+
 headers = {
     'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.62 Safari/537.36'
 }
@@ -23,12 +25,23 @@ def func():
         print(proxy,res.status_code)
     except:
         print(proxy,'失效')
-    # print(res.text)
+
+def tmp2():
+    proxies = RedisClient.get_all_proxies()
+    print(proxies)
+    print(len(proxies))
+    for proxy in proxies:
+        try:
+            res = requests.get('https://www.taobao.com/', headers=headers, proxies=proxy, timeout=3)
+            print(proxy, res.status_code)
+        except:
+            print(proxy, '失效')
 
 
 if __name__ == '__main__':
-    import time
-    start = time.time()
-    for _ in range(100):
-        func()
-    print('time use:{}'.format(time.time()-start))
+    tmp2()
+    # import time
+    # start = time.time()
+    # for _ in range(100):
+    #     func()
+    # print('time use:{}'.format(time.time()-start))
