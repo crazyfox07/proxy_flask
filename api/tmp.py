@@ -14,7 +14,7 @@ headers = {
     'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.62 Safari/537.36'
 }
 def get_proxy():
-    res = requests.post('http://99.48.58.12:9999')
+    res = requests.post('http://127.0.0.1:9999')
     proxy = res.json().get('proxy')
     return proxy
 
