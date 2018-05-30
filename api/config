@@ -1,8 +1,8 @@
 
 [redis_section]
-REDIS_HOST = 99.48.58.244
+REDIS_HOST = 
 REDIS_PORT = 6379
-PASSWORD = mime@123
+PASSWORD = 
 DB = 13
 KEY_EXPIRE = 3600
 SET_NAME = proxy_nofilter
